@@ -6,30 +6,98 @@
   <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
   <script src="components/loader.js"></script>
   <script src="lib/onsenui/js/onsenui.min.js"></script>
+  <script src="components/jquery-3.3.1.min.js"></script>
   <script src="components/banco.js"></script>
+  <script src="components/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="components/loader.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
 
-  <script>
+  <script> //Comandos JavaScript
+    document.addEventListener('init', function(event) {
+      var page = event.target;
+
+      if (page.id === 'page1') {
+        page.querySelector('#push-button').onclick = function() {
+          document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Listar'}});
+        };
+      } else if (page.id === 'page2') {
+        page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+      }
+    });
+
+
 
   </script>
 </head>
 <body>
-  <ons-page>
-  <div style="text-align: center; margin-top: 30px;">
-    <p>
-      <ons-input id="nome" modifier="underbar" placeholder="Nome" float></ons-input>
-    </p>
-    <p>
-      <ons-input id="email" modifier="underbar" type="text" placeholder="E-mail" float></ons-input>
-    </p>
-    <p style="margin-top: 30px;">
-      <ons-button id="cadastrar"> Cadastrar </ons-button>
-    </p>
-  </div>
-</ons-page>
+
+<ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator> <!-- Pagina Padrão -->
+
+  <template id="page1.html"> <!-- Inicio da pagina -->
+    <ons-page id="page1"> <!-- Conteudo da pagina -->
+      <!--  Div cadastra -->
+      <div style="text-align: center; margin-top: 30px;">
+        <!--   Input Nome -->
+      
+        <p>
+          <ons-input id="nome" modifier="underbar" placeholder="Nome"></ons-input>
+        </p>
+        <!-- Input Email -->
+        <p>
+          <ons-input id="email" modifier="underbar" type="text" placeholder="E-mail"></ons-input>
+        </p>
+        <!-- Botão cadastrar -->
+        <p style="margin-top: 30px;">
+          <ons-button id="cadastrar" onclick="cadastrar()"> Cadastrar </ons-button>
+        </p>
+        <!-- Botão listar -->
+        <p style="margin-top: 30px;">
+          <ons-button style="background-color: red;" id="push-button"> Listar </ons-button>
+        </p>
+      </div>
+    </ons-page> <!-- Conteudo da pagina -->
+  </template> <!-- Fim da pagina -->
+
+  <template id="page2.html"> <!-- Inicio da Página 2 -->
+    <ons-page id="page2"> <!-- Início Conteudo da Página 2 -->
+    
+      <ons-toolbar>  <!-- Início Barra de tarefas -->
+        <div class="left"><ons-back-button>Home</ons-back-button></div>
+      </ons-toolbar> <!-- Fim Barra de tarefas -->
+
+      <div style="text-align: center; margin-top: 20%;">
+        <h2> Lista de Pessoas </h2>
+        <ons-select class="select">
+          <select id="lista" class="select-input">
+            
+          </select>
+        </ons-select>
+        <p>
+          <ons-input id="cod" modifier="underbar" placeholder="Código" readonly></ons-input>
+        </p>
+        <p>
+          <ons-input id="nome" modifier="underbar" placeholder="Nome"></ons-input>
+        </p>
+        <p>
+          <ons-input id="email" modifier="underbar" placeholder="E-mail"></ons-input>
+        </p>
+        <p style="margin-top: 30px;">
+          <ons-button style="background-color: #5ACF4E; margin: 10px;"><i class="zmdi zmdi-check-circle"></i></ons-button>
+
+          <ons-button style="background-color: #F0C120; margin: 10px;"><i class="zmdi zmdi-edit"></i></ons-button>
+
+          <ons-button style="background-color: #DC4C4C; margin: 10px;" ><i class="zmdi zmdi-delete"></i></ons-button>
+
+          <ons-button style="background-color: #8C8C8C; margin: 10px;" ><i class="zmdi zmdi-close-circle"></i></ons-button>
+        </p>
+      </div>
+
+    </ons-page> <!-- Fim do conteudo -->
+  </template> <!-- Fim da Página 2 -->
+
 </body>
 </html>
+<!-- https://zavoloklom.github.io/material-design-iconic-font/icons.html#hardware -->
